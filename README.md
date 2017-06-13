@@ -1,5 +1,7 @@
 # Spring_boot_example2
 
+Spring Boot REST + JPA + Hibernate + MySQL
+
 List the users which are created in the Spring_boot_example1 project.
 
 # Opening the page
