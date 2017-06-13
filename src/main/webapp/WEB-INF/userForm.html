@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>User Form</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$( function() {
+		$( "#datepicker" ).datepicker();
+        $( "#datepicker" ).datepicker("show");
+	});
+	$("#submitForm").submit(function(event) {
+		
+		var name= document.getElementById('name').value;
+		var address= document.getElementById('address').value;
+		var dob= document.getElementById('datepicker').value;
+		var date = new Date(dob);
+		var milliseconds = date.getTime();
+		
+		$.ajax({
+			url : "http://localhost:8081/user",
+			data: JSON.stringify({ "name": name, "address": address, "dob":milliseconds }),
+			dataType : 'json',
+			contentType: "application/json; charset=utf-8",
+			type : 'POST',
+			success: function()
+		    {
+				alert('success');
+		    },
+		});
+	});
+});
+</script>
+</head>
+<body>
+<div class="container">
+<h1>Create User</h1>
+<br><br><br>
+	<form id="submitForm" action="http://localhost:8081/user" method="post" enctype="multipart/form-data">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Name:</label> 
+			<input type="text" style="width:30%;" class="form-control" id="name">
+		</div>
+		<div class="form-group">
+			<label for="address" class="col-sm-2 control-label">Address:</label>
+			<textarea class="form-control" style="width:30%;" rows="5" id="address"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="dob" class="col-sm-2 control-label">Date of Birth:</label> 
+			<input type="text" style="width:30%;" class="form-control"id="datepicker">
+		</div>
+		<br>
+		<button type="submit" style="margin-left: 17%;" class="btn btn-default">Submit</button>
+	</form>
+	</div>
+</body>
+</html>
